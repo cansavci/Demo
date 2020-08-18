@@ -2,7 +2,7 @@ import * as Demo from './Demo';
 import * as Counter from './Counter';
 
 // The top-level state object
-export interface ApplicationState2 {
+export interface ApplicationState {
     counter: Counter.CounterState | undefined;
     assets: Demo.AssetsVariantState | undefined;
 }
@@ -18,5 +18,5 @@ export const reducers = {
 // This type can be used as a hint on action creators so that its 'dispatch' and 'getState' params are
 // correctly typed to match your store.
 export interface AppThunkAction<TAction> {
-    (dispatch: (action: TAction) => void, getState: () => ApplicationState2): void;
+    (dispatch: (action: TAction) => void, getState: () => ApplicationState): void;
 }

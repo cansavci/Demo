@@ -1,5 +1,5 @@
 import { Action, Reducer } from 'redux';
-import { AppThunkAction } from './';
+import { AppThunkAction } from './index2';
 
 export interface AssetsVariantState {
     isLoading: boolean;
@@ -60,7 +60,7 @@ type KnownAction = RequestDemoAction | ReceiveDemoAction |
 export const actionCreators = {
     requestAssets: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
-        if (appState && appState.weatherForecasts) {
+        if (appState && appState.assets) {
             fetch(`assets`)
                 .then(response => response.json() as Promise<Asset[]>)
                 .then(data => {
@@ -72,7 +72,7 @@ export const actionCreators = {
     },
     requestFolders: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
-        if (appState && appState.weatherForecasts) {
+        if (appState && appState.assets) {
             fetch(`assets`)
                 .then(response => response.json() as Promise<Folder[]>)
                 .then(data => {
@@ -84,7 +84,7 @@ export const actionCreators = {
     },
     requestVariantsFromFile: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
-        if (appState && appState.weatherForecasts) {
+        if (appState && appState.assets) {
             fetch(`assets`)
                 .then(response => response.json() as Promise<Variant[]>)
                 .then(data => {
