@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { Container, Box, Button } from "@material-ui/core";
+import { Box, Button } from "@material-ui/core";
 import DemoPage from "./Demo";
 import Upload from "./Upload";
 

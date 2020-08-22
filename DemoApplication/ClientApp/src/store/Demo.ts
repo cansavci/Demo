@@ -61,12 +61,14 @@ export const actionCreators = {
     requestAssets: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
         const appState = getState();
         if (appState && appState.assets) {
+            debugger;
             fetch(`assets`)
                 .then(response => response.json() as Promise<Asset[]>)
                 .then(data => {
+                    debugger;
                     dispatch({ type: 'RECEIVE_Asset', assets: data });
                 });
-
+            debugger;
             dispatch({ type: 'REQUEST_Asset' });
         }
     },

@@ -11,6 +11,7 @@ import { RouteComponentProps } from "react-router";
 import { ApplicationState } from "../store/index2";
 import { connect } from "react-redux";
 import MaterialTable, { Column } from "material-table";
+import Upload from "./Upload";
 
 type DemoProps = DemoStore.AssetsVariantState & // ... state we've requested from the Redux store
   typeof DemoStore.actionCreators & // ... plus action creators we've requested
@@ -35,7 +36,8 @@ const DemoPage: React.FunctionComponent<DemoProps> = (props) => {
   return (
     <React.Fragment>
       <Icon>Can</Icon>
-      <MaterialTable title="Sample table" columns={columns} data={assetData} />
+      {/* <MaterialTable title="Sample table" columns={columns} data={assetData} /> */}
+      <Upload></Upload>
     </React.Fragment>
   );
 };
