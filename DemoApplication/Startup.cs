@@ -1,4 +1,5 @@
 using DemoApplication.Data;
+using DemoApplication.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -31,6 +32,8 @@ namespace DemoApplication
 
             services.AddDbContext<DemoContext>(options => options.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;Initial Catalog=DemoDB;"));
 
+            //Cognitive Service Register
+            services.AddSingleton<ICognitiveAnalyzeService, CognitiveAnalyzeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

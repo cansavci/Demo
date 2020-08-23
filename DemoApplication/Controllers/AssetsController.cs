@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DemoApplication.Data;
 using DemoApplication.Domain;
+using DemoApplication.Service;
+using DemoApplication.Models;
 
 namespace DemoApplication.Controllers
 {
@@ -15,10 +17,12 @@ namespace DemoApplication.Controllers
     public class AssetsController : ControllerBase
     {
         private readonly DemoContext _context;
+        private readonly ICognitiveAnalyzeService _cognitiveAnalyzeService;
 
-        public AssetsController(DemoContext context)
+        public AssetsController(DemoContext context, ICognitiveAnalyzeService cognitiveAnalyzeService)
         {
             _context = context;
+            _cognitiveAnalyzeService = cognitiveAnalyzeService;
         }
 
         [HttpGet]
@@ -57,6 +61,9 @@ namespace DemoApplication.Controllers
             }
 
             _context.Entry(asset).State = EntityState.Modified;
+            CognitiveResponseModel response = (await _cognitiveAnalyzeService.GetMetadatasFromAzureCognitive(asset.Data));
+            List<Variant> variants = response.Categories.Select(p => new Variant() { Description = p.Name }).ToList();
+            asset.SetVariants(variants);
 
             try
             {
@@ -82,6 +89,9 @@ namespace DemoApplication.Controllers
         public async Task<ActionResult<Asset>> PostAsset(Asset asset)
         {
             _context.Assets.Add(asset);
+            CognitiveResponseModel response = (await _cognitiveAnalyzeService.GetMetadatasFromAzureCognitive(asset.Data));
+            List<Variant> variants = response.Categories.Select(p => new Variant() { Description = p.Name }).ToList();
+            asset.SetVariants(variants);
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetAsset", new { id = asset.Id }, asset);

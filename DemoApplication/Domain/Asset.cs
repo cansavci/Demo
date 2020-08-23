@@ -11,5 +11,15 @@ namespace DemoApplication.Domain
         public int FolderId { get; set; }
 
         public List<Variant> Variants { get; set; }
+
+        public Asset()
+        {
+
+        }
+
+        public void SetVariants(List<Variant> variantList)
+        {
+            Variants = variantList;
+        }
     }
 }

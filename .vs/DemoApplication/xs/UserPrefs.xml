@@ -1,0 +1,38 @@
+﻿<Properties StartupConfiguration="{72FAF45E-8DE0-440D-9DF6-477AA47A71C4}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="DemoApplication/Domain/Variant.cs">
+    <Files>
+      <File FileName="DemoApplication/Controllers/UploadController.cs" Line="31" Column="2" />
+      <File FileName="DemoApplication/Service/CognitiveAnalyzeService.cs" Line="14" Column="56" />
+      <File FileName="DemoApplication/Controllers/AssetsController.cs" Line="89" Column="24" />
+      <File FileName="DemoApplication/Startup.cs" Line="35" Column="41" />
+      <File FileName="DemoApplication/Domain/Asset.cs" Line="13" Column="25" />
+      <File FileName="DemoApplication/Models/CognitiveResponseModel.cs" Line="13" Column="41" />
+      <File FileName="DemoApplication/Domain/Variant.cs" Line="8" Column="18" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="DemoApplication" expanded="True">
+            <Node name="DemoApplication" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Data" expanded="True" />
+              <Node name="Domain" expanded="True">
+                <Node name="Variant.cs" selected="True" />
+              </Node>
+              <Node name="Models" expanded="True" />
+              <Node name="Service" expanded="True" />
+              <Node name="appsettings.json" expanded="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.DemoApplication PreferredExecutionTarget="/Applications/Safari.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
