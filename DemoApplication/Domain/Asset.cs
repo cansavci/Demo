@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Http;
+using System.Collections.Generic;
 
 namespace DemoApplication.Domain
 {
@@ -6,7 +7,7 @@ namespace DemoApplication.Domain
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public byte[] Data { get; set; }
+        public IFormFile Data { get; set; }
 
         public int FolderId { get; set; }
 

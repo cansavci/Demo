@@ -1,8 +1,11 @@
-﻿using System;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using DemoApplication.Domain;
+using DemoApplication.Service;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using System;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace DemoApplication.Controllers
 {
@@ -11,21 +14,32 @@ namespace DemoApplication.Controllers
     public class UploadController : ControllerBase
     {
         private readonly IConfiguration _config;
+        private readonly IAzureBlobStorage _blobStorage;
 
-        public UploadController(IConfiguration config)
+        public UploadController(IConfiguration config, IAzureBlobStorage blobStorage)
         {
             _config = config;
+            _blobStorage = blobStorage;
         }
 
 
-        public IActionResult UploadFile()
+        public async Task<string> UploadFile(Asset assset)
         {
-            using (var httpClient = new HttpClient())
-            {
+            var blobName = Guid.NewGuid().ToString() + Path.GetExtension(assset.Data.FileName);
+            var fileStream = GetFileStream(assset.Data);
 
-            }
+            await _blobStorage.UploadAsync(blobName, fileStream);
 
-            return (IActionResult)Task.FromResult(true);
+            return blobName;
         }
+
+        #region Helper
+        private MemoryStream GetFileStream(IFormFile file)
+        {
+            MemoryStream filestream = new MemoryStream();
+            file.CopyTo(filestream);
+            return filestream;
+        }
+        #endregion
     }
 }

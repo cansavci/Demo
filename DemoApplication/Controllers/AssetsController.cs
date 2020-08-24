@@ -9,6 +9,7 @@ using DemoApplication.Data;
 using DemoApplication.Domain;
 using DemoApplication.Service;
 using DemoApplication.Models;
+using System.IO;
 
 namespace DemoApplication.Controllers
 {
@@ -61,8 +62,7 @@ namespace DemoApplication.Controllers
             }
 
             _context.Entry(asset).State = EntityState.Modified;
-            CognitiveResponseModel response = (await _cognitiveAnalyzeService.GetMetadatasFromAzureCognitive(asset.Data));
-            List<Variant> variants = response.Categories.Select(p => new Variant() { Description = p.Name }).ToList();
+            List<Variant> variants = GetVariants(asset);
             asset.SetVariants(variants);
 
             try
@@ -82,6 +82,19 @@ namespace DemoApplication.Controllers
             }
 
             return NoContent();
+        }
+
+        private List<Variant> GetVariants(Asset asset)
+        {
+            byte[] fileBytes;
+            using (var ms = new MemoryStream())
+            {
+                asset.Data.CopyTo(ms);
+                fileBytes = ms.ToArray();
+            }
+            CognitiveResponseModel response = _cognitiveAnalyzeService.GetMetadatasFromAzureCognitive(fileBytes).Result;
+
+            return response.Categories.Select(p => new Variant() { Description = p.Name }).ToList();
         }
 
         // POST: api/Assets

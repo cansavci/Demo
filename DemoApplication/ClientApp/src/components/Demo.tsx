@@ -47,7 +47,7 @@ const DemoPage: React.FunctionComponent<DemoProps> = (props) => {
       .then((res) => {
         let dataToAdd = [...data];
         dataToAdd.push(newData);
-        setData(dataToAdd);
+        setAssetData(dataToAdd);
         resolve();
         setErrorMessages([]);
         setIserror(false);
@@ -65,7 +65,7 @@ const DemoPage: React.FunctionComponent<DemoProps> = (props) => {
         const dataUpdate = [...data];
         const index = oldData.tableData.id;
         dataUpdate[index] = newData;
-        setData([...dataUpdate]);
+        setAssetData([...dataUpdate]);
         resolve();
         setIserror(false);
         setErrorMessages([]);
@@ -83,7 +83,7 @@ const DemoPage: React.FunctionComponent<DemoProps> = (props) => {
         const dataDelete = [...data];
         const index = oldData.tableData.id;
         dataDelete.splice(index, 1);
-        setData([...dataDelete]);
+        setAssetData([...dataDelete]);
         resolve();
       })
       .catch((error) => {
@@ -95,7 +95,6 @@ const DemoPage: React.FunctionComponent<DemoProps> = (props) => {
 
   return (
     <React.Fragment>
-      <Icon>Can</Icon>
       <MaterialTable
         title="Sample table"
         columns={columns}

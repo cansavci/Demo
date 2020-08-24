@@ -4,7 +4,9 @@ using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
+using DemoApplication.Models;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace DemoApplication.Service
@@ -22,7 +24,7 @@ namespace DemoApplication.Service
             _apiUrlBase = _config.GetValue<string>("COMPUTER_VISION_SUBSCRIPTION_KEY");
         }
 
-        public async Task<string> GetMetadatasFromAzureCognitive(byte[] imageDatas)
+        public async Task<CognitiveResponseModel> GetMetadatasFromAzureCognitive(byte[] imageDatas)
         {
             using (var httpClient = new HttpClient())
             {
@@ -46,11 +48,10 @@ namespace DemoApplication.Service
 
                 // Asynchronously get the JSON response.
                 string contentString = await response.Content.ReadAsStringAsync();
-                dynamic jToken = JToken.Parse(contentString);
+                var result = JsonConvert.DeserializeObject<CognitiveResponseModel>(contentString);
 
-                return jToken.Categories.ToList();
+                return result;
             }
         }
-
     }
 }

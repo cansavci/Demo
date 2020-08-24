@@ -34,6 +34,18 @@ namespace DemoApplication
 
             //Cognitive Service Register
             services.AddSingleton<ICognitiveAnalyzeService, CognitiveAnalyzeService>();
+
+            //Add Azure Blob Storage
+            services.AddScoped<IAzureBlobStorage>(factory =>
+            {
+                int.TryParse(Configuration["BlobStorage:SharedAccessExpiryTime"], out int sharedAccessExpiryTime);
+
+                return new AzureBlobStorage(new AzureBlobSettings(
+                    connectionString: Configuration["BlobStorage:ConnectionString"],
+                    containerName: Configuration["BlobStorage:ContainerName"],
+                    sharedAccessExpiryTime: sharedAccessExpiryTime));
+
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
