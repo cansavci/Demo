@@ -102,8 +102,7 @@ namespace DemoApplication.Controllers
         public async Task<ActionResult<Asset>> PostAsset(Asset asset)
         {
             _context.Assets.Add(asset);
-            CognitiveResponseModel response = (await _cognitiveAnalyzeService.GetMetadatasFromAzureCognitive(asset.Data));
-            List<Variant> variants = response.Categories.Select(p => new Variant() { Description = p.Name }).ToList();
+            List<Variant> variants = GetVariants(asset);
             asset.SetVariants(variants);
             await _context.SaveChangesAsync();
 
